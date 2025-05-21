@@ -1,4 +1,5 @@
 import express from 'express';
+import db from './db/index.js'
 
 const PORT = 3000;
 
@@ -22,7 +23,13 @@ let usuarios = [
 ];
 
 app.get('/usuario', (req, res) => {
-  res.status(200).json(usuarios);
+  const sql = "SELECT * FROM usuario;"
+
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({mensagem: `Erro interno no servidor: ${err}`})
+
+    res.status(200).json(result)
+  })
 });
 
 app.post('/usuario', (req, res) => {
@@ -35,15 +42,13 @@ app.post('/usuario', (req, res) => {
     });
   }
 
-  const novoUsuario = {
-    nome,
-    email,
-    data_nascimento,
-  };
+  const sql = "INSERT INTO usuario (nome, email, data_nascimento) VALUES (?, ?, ?);"
 
-  usuarios.push(novoUsuario);
+  db.query(sql, [nome, email, data_nascimento], (err, result) => {
+    if (err) return res.status(500).json({mensagem: `Erro interno no servidor: ${err}`})
 
-  res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso!' });
+    res.status(201).json({mensagem: 'Usuário cadastrado com sucesso!'})
+  })
 });
 
 app.put('/usuario/:id', (req, res) => {
