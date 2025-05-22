@@ -11,43 +11,40 @@ app.use(express.json());
 /**
  * @swagger
  * /usuario:
- *    get:
- *      summary: Retorna todos os usuários
- *      description: Recupera todos os registros de usuários da tabela 'usuário' do banco de dados
- *      tags:
- *        - Usuários
- *      responses:
- *        200:
- *          description: Lista de usuários retornada com sucesso
- *          content:
- *            aplication/json:
- *              schema:
- *                type: array
- *                items: object
- *                properties: 
- *                  id:
- *                    type: integer
- *                    example: 2
- *                  nome:
- *                    type: string
- *                    example: Maria da Silva
- *                  email:
- *                    type: string
- *                    example: maria_silva@email.com
- *        500:
- *          description: Erro interno no servidor
- *          content:
- *            aplication/json:
- *              schema:
- *                type: object
- *                properties: 
- *                  mensagem:
- *                    type: string
- *                    example: 'Erro interno no servidor: <mensagem de erro>' 
- *                  
- *          
- *    
- * 
+ *   get:
+ *     summary: Retorna todos os usuários cadastrados
+ *     description: Recupera todos os registros da tabela `usuario` do banco de dados.
+ *     tags:
+ *       - Usuários
+ *     responses:
+ *       200:
+ *         description: Lista de usuários retornada com sucesso aaa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   nome:
+ *                     type: string
+ *                     example: João Silva
+ *                   email:
+ *                     type: string
+ *                     example: joao@example.com
+ *       500:
+ *         description: Erro interno no servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: 'Erro interno no servidor: <mensagem de erro>'
  */
 app.get('/usuario', (req, res) => {
   const sql = "SELECT * FROM usuario;"
