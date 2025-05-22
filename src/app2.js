@@ -56,6 +56,62 @@ app.get('/usuario', (req, res) => {
   })
 });
 
+/**
+ * @swagger
+ * /usuario/{id}:
+ *   get:
+ *     summary: Retorna um usuário específico
+ *     description: Recupera um registro da tabela `usuario` do banco de dados através do id.
+ *     tags:
+ *       - Usuários
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: ID numérico do usuário a ser encontrado
+ *          schema:
+ *              type: integer
+ *              example: 1
+ *     responses:
+ *       200:
+ *         description: Usuário retornado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   nome:
+ *                     type: string
+ *                     example: João Silva
+ *                   email:
+ *                     type: string
+ *                     example: joao@example.com
+ *       404:
+ *         description: Usuário não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: 'Nenhum usuário encontrado'
+ *       500:
+ *         description: Erro interno no servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: 'Erro interno no servidor: <mensagem de erro>'
+ */
 app.get('/usuario/:id', (req, res) => {
   const { id } = req.params;
   const sql = "SELECT * FROM usuario WHERE id = ?;"
